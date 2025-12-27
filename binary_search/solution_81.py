@@ -16,12 +16,15 @@ class Solution:
             if nums[l] == nums[mid]:
                 l += 1
                 continue
+            if nums[r] == nums[mid]:
+                 r -= 1
+                 continue
 
-            if nums[l] <= nums[mid]:
+            if nums[l] < nums[mid]:
                 if nums[l] <= target < nums[mid]:
-                    l = mid - 1
+                    r = mid - 1
                 else:
-                    r = mid + 1
+                    l = mid + 1
             else:
                 if nums[mid] < target <= nums[r]:
                     l = mid + 1
@@ -32,5 +35,6 @@ class Solution:
 
 # result = Solution().search([2, 5, 6, 0, 0, 1, 2], 3)
 # result = Solution().search([1], 3)
-result = Solution().search([1, 0, 1, 1, 1], 0)
+# result = Solution().search([1, 0, 1, 1, 1], 0)
+result = Solution().search([4,5,6,7,0,1,2], 0)
 print(result)
