@@ -3,16 +3,16 @@ from typing import List
 
 class Solution:
     def peakIndexInMountainArray(self, arr: List[int]) -> int:
-        left, right = 0, len(arr)
+        m = len(arr)
+        l, r = 0, m - 1
 
-        while left < right:
-            mid = left + (right - left) // 2
-            if mid + 1 >= len(arr) or arr[mid] >= arr[mid + 1]:
-                right = mid
+        while l < r:
+            mid = (l + r) //2
+            if mid + 1 < m and arr[mid] > arr[mid + 1]:
+                r = mid
             else:
-                left = mid + 1
-
-        return left
+                l = mid + 1
+        return l
 
 
 # result = Solution().peakIndexInMountainArray([0, 1, 0])
