@@ -1,3 +1,4 @@
+from cmath import inf
 from functools import cache
 from typing import List
 
@@ -9,30 +10,35 @@ class Solution:
 
         @cache
         def dfs(i: int, j: int, v: int) -> int:
-            if j + 1 >= n:
-                return 0
-            v1 = v2 = v3 = 0
-            if grid[i][j + 1] > v:
-                v1 = 1 + dfs(i, j + 1, grid[i][j + 1])
-            if i - 1 >= 0 and grid[i - 1][j + 1] > v:
-                v2 = 1 + dfs(i - 1, j + 1, grid[i - 1][j + 1])
-            if i + 1 < m and grid[i + 1][j + 1] > v:
-                v3 = 1 + dfs(i + 1, j + 1, grid[i + 1][j + 1])
+            if i < 0 or i >= m:
+                return -inf
+            if j >= n:
+                return -inf
 
-            return max(v1, v2, v3)
+            if grid[i][j] <= v:
+                return j - 1
+
+            ans = j
+            for l in (i - 1, i, i + 1):
+                ans = max(ans, dfs(l, j + 1, grid[i][j]))
+            print(f'{i}----{j}----{ans}')
+            return ans
+
+        return max(dfs(k, 0, -inf) for k in range(m))
 
         result = 0
         for k in range(m):
-            tmp = dfs(k, 0, grid[k][0])
+            tmp = dfs(k, 0, -inf)
             result = max(result, tmp)
+            print(f'+++++{tmp}----{result}')
         return result
 
 
-# result = Solution().maxMoves([[2, 4, 3, 5],
-#                               [5, 4, 9, 3],
-#                               [3, 4, 2, 11],
-#                               [10, 9, 13, 15]])
-result = Solution().maxMoves([[3, 2, 4],
-                              [2, 1, 9],
-                              [1, 1, 7]])
+result = Solution().maxMoves([[2, 4, 3, 5],
+                              [5, 4, 9, 3],
+                              [3, 4, 2, 11],
+                              [10, 9, 13, 15]])
+# result = Solution().maxMoves([[3, 2, 4],
+#                               [2, 1, 9],
+#                               [1, 1, 7]])
 print(result)
