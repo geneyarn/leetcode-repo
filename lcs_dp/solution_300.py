@@ -6,13 +6,14 @@ class Solution:
         m = len(nums)
 
         def dp(i: int) -> int:
+
             ans = 1
             for j in range(i):
                 if nums[j] < nums[i]:
                     ans = max(ans, dp(j) + 1)
             return ans
 
-        return max([dp(k) for k in range(m)])
+        return max([dp(i) for i in range(m)])
 
     def lengthOfLIS(self, nums: List[int]) -> int:
         m = len(nums)
