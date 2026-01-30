@@ -10,14 +10,13 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        # self.tmp = [0] * len(nums)
-        # self.mergeSort(nums, 0, len(nums) - 1)
-        self.quickSort(nums, 0, len(nums) - 1)
+        self.tmp = [0] * len(nums)
+        self.mergeSort(nums, 0, len(nums) - 1)
+        # self.quickSort(nums, 0, len(nums) - 1)
 
     def mergeSort(self, nums: List[int], start: int, end: int):
         if start >= end:
             return
-
         mid = (start + end) // 2
         self.mergeSort(nums, start, mid)
         self.mergeSort(nums, mid + 1, end)
@@ -50,14 +49,15 @@ class Solution:
         self.quickSort(nums, p + 1, hi)
 
     def partition(self, nums: List[int], lo: int, hi: int) -> int:
-        pivot = nums[lo]
+        p = nums[lo]
 
         i, j = lo + 1, hi
         while i <= j:
-            while i <= j and nums[i] <= pivot:
+            while i <= j and nums[i] <= p:
                 i += 1
-            while i <= j and nums[j] > pivot:
+            while i <= j and nums[j] > p:
                 j -= 1
+
             if i >= j:
                 break
             nums[i], nums[j] = nums[j], nums[i]
@@ -67,8 +67,7 @@ class Solution:
         return j
 
 
-
-# arr = [2, 0, 2, 1, 1, 0, 3]
-arr = [0, 1]
+arr = [2, 0, 2, 1, 1, 0, 3]
+# arr = [0, 1]
 result = Solution().sortColors(arr)
-print(result)
+print(arr)
