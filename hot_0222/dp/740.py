@@ -1,0 +1,27 @@
+from typing import List
+
+
+class Solution:
+
+    def rob(self, nums: List[int]) -> int:
+        m = len(nums)
+        if m <= 2:
+            return max(nums)
+        dp = [0] * m
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+
+        for i in range(2, m):
+            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+
+        return dp[-1]
+
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        mx = max(nums)
+
+        arr = [0] * (mx + 1)
+
+        for n in nums:
+            arr[n] += n
+
+        return self.rob(arr)
