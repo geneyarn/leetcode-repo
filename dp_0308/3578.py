@@ -18,12 +18,14 @@ class Solution:
 
                 if big - small <= k:
                     ans += dp(j + 1)
+                else:
+                    break
 
             return ans
 
         res = dp(0)
         dp.cache_clear()
-        return res
+        return res % (10 ** 9 + 7)
 
 
 # result = Solution().countPartitions([9, 4, 1, 3, 7], 4)
