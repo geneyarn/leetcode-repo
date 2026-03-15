@@ -13,10 +13,10 @@ class Solution:
                 return True
 
             ans = False
-            for j in range(i + 1, m + 1):
-                sub = s[i:j]
+            for j in range(i, m):
+                sub = s[i:j + 1]
                 if sub in ws:
-                    ans = ans or dp(j)
+                    ans = ans or dp(j + 1)
 
             return ans
 
@@ -25,5 +25,5 @@ class Solution:
         return ans
 
 
-result = Solution().wordBreak('leetcode1', ["leet", "code"])
+result = Solution().wordBreak('leetcode', ["leet", "code"])
 print(result)
