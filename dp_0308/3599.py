@@ -16,11 +16,16 @@ class Solution:
                 return pre[m] ^ pre[i]
 
             res = inf
-            for j in range(i + 1, m - k + 2):
-                res = min(res, max(pre[j] ^ pre[i], dp(j, k - 1)))
+            for j in range(i, m - k + 1):
+                res = min(res, max(pre[j + 1] ^ pre[i], dp(j + 1, k - 1)))
             return res
 
         res = dp(0, k)
         dp.cache_clear()
 
         return res
+
+
+result = Solution().minXor([1, 2, 3], 2)
+# result = Solution().minXor([2, 3, 3, 2], 3)
+print(result)
