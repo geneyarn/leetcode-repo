@@ -1,3 +1,4 @@
+from cmath import inf
 from typing import List
 
 
@@ -6,8 +7,8 @@ class Solution:
         m = len(nums)
         s = sum(nums)
 
-        mx = [0] * (m)
-        mi = [0] * (m)
+        mx = [-inf] * m
+        mi = [inf] * m
 
         mx[0] = mi[0] = nums[0]
 
@@ -15,13 +16,13 @@ class Solution:
             mx[i] = max(mx[i - 1] + nums[i], nums[i])
             mi[i] = min(mi[i - 1] + nums[i], nums[i])
 
-        maxVal = max(mx)
-        minVal = min(mi)
+        maxV = max(mx)
+        minV = min(mi)
 
-        if maxVal < 0:
-            return maxVal
+        if maxV < 0:
+            return maxV
 
-        return max(maxVal, s - minVal)
+        return max(maxV, s - minV)
 
 
 result = Solution().maxSubarraySumCircular([5, -3, 5])
