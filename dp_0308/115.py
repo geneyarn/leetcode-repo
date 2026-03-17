@@ -17,10 +17,9 @@ class Solution:
             else:
                 return dp(i - 1, j)
 
-        ans = dp(m - 1, n - 1)
+        asn = dp(m - 1, n - 1)
         dp.cache_clear()
-        return ans
-
+        return asn
 
 result = Solution().numDistinct('rabbbit', 'rabit')
 print(result)

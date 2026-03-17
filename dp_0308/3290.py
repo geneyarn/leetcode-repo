@@ -11,11 +11,11 @@ class Solution:
         def dp(i: int, j: int) -> int:
             if i < 0:
                 return 0
+            # i > =0
             if j < 0:
                 return -inf
 
-            ans = max(dp(i, j - 1), a[i] * b[j] + dp(i - 1, j - 1))
-            return ans
+            return max(dp(i, j - 1), dp(i - 1, j - 1) + a[i] * b[j])
 
         ans = dp(m - 1, n - 1)
         dp.cache_clear()
