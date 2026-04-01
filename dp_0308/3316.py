@@ -13,13 +13,12 @@ class Solution:
         def dp(i: int, j: int) -> int:
             if i < j:
                 return -inf
-            # i >= j
-            if i < 0 and j < 0:
+            if i < 0:
                 return 0
 
             ans = dp(i - 1, j) + (i in s)
             if j >= 0 and source[i] == pattern[j]:
-                ans = max(dp(i - 1, j - 1), ans)
+                ans = max(ans, dp(i - 1, j - 1))
 
             return ans
 
@@ -29,7 +28,7 @@ class Solution:
 
 
 # result = Solution().maxRemovals('abbaa', 'aba', [0, 1, 2])
-# result = Solution().maxRemovals('bcda', 'd', [0, 3])
-result = Solution().maxRemovals('yyey', 'y', [0])
+result = Solution().maxRemovals('bcda', 'd', [0, 3])
+# result = Solution().maxRemovals('yyey', 'y', [0])
 # result = Solution().isSub('abbaa', 'aba')
 print(result)
