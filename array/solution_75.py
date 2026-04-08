@@ -8,15 +8,52 @@ class Solution:
 
     def sortColors(self, nums: List[int]) -> None:
         m = len(nums)
-        # self.tmp = [0] * m
-        # self.mergeSort(nums, 0, m - 1)
+        self.tmp = [0] * m
+        self.mergeSort(nums, 0, m - 1)
 
-        self.quickSort(nums, 0, m - 1)
+        # self.quickSort(nums, 0, m - 1)
 
-    def partition(self, nums: list[int], left: int, right: int) -> int:
-        pivot = nums[left]
+    def mergeSort(self, nums: list[int], l: int, r: int):
+        if l >= r:
+            return
 
-        i, j = left + 1, right
+        mid = (l + r) // 2
+        self.mergeSort(nums, l, mid)
+        self.mergeSort(nums, mid + 1, r)
+
+        self.merge(nums, l, mid, r)
+
+    def merge(self, nums: list[int], l: int, mid: int, r: int):
+
+        for i in range(l, r + 1):
+            self.tmp[i] = nums[i]
+
+        i, j = l, mid + 1
+
+        for p in range(l, r + 1):
+            if i == mid + 1:
+                nums[p] = self.tmp[j]
+                j += 1
+            elif j == r + 1:
+                nums[p] = self.tmp[i]
+                i += 1
+            elif self.tmp[i] <= self.tmp[j]:
+                nums[p] = self.tmp[i]
+                i += 1
+            else:
+                nums[p] = self.tmp[j]
+                j += 1
+
+    def quickSort(self, nums: List[int], l: int, r: int):
+        if l >= r:
+            return
+        p = self.partition(nums, l, r)
+        self.quickSort(nums, l, p - 1)
+        self.quickSort(nums, p + 1, r)
+
+    def partition(self, nums: list[int], l: int, r: int) -> int:
+        pivot = nums[l]
+        i, j = l + 1, r
 
         while i <= j:
             while i <= j and nums[i] <= pivot:
@@ -28,48 +65,9 @@ class Solution:
                 break
             nums[i], nums[j] = nums[j], nums[i]
 
-        nums[left], nums[j] = nums[j], nums[left]
+        nums[l], nums[j] = nums[j], nums[l]
 
         return j
-
-    def quickSort(self, nums: list[int], left: int, right: int):
-        if left >= right:
-            return
-
-        p = self.partition(nums, left, right)
-
-        self.quickSort(nums, left, p - 1)
-        self.quickSort(nums, p + 1, right)
-
-    def mergeSort(self, nums: list[int], left: int, right: int):
-        if left >= right:
-            return
-
-        mid = (left + right) // 2
-        self.mergeSort(nums, left, mid)
-        self.mergeSort(nums, mid + 1, right)
-
-        self.merge(nums, left, mid, right)
-
-    def merge(self, nums: list[int], left: int, mid: int, right: int):
-        for i in range(left, right + 1):
-            self.tmp[i] = nums[i]
-
-        i, j = left, mid + 1
-
-        for p in range(left, right + 1):
-            if i == mid + 1:
-                nums[p] = self.tmp[j]
-                j += 1
-            elif j == right + 1:
-                nums[p] = self.tmp[i]
-                i += 1
-            elif self.tmp[i] < self.tmp[j]:
-                nums[p] = self.tmp[i]
-                i += 1
-            else:
-                nums[p] = self.tmp[j]
-                j += 1
 
 
 arr = [6, 2, 0, 2, 1, 1, 0, 3, 5]
