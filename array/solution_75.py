@@ -8,10 +8,38 @@ class Solution:
 
     def sortColors(self, nums: List[int]) -> None:
         m = len(nums)
-        self.tmp = [0] * m
-        self.mergeSort(nums, 0, m - 1)
+        # self.tmp = [0] * m
+        # self.mergeSort(nums, 0, m - 1)
 
-        # self.quickSort(nums, 0, m - 1)
+        self.quickSort(nums, 0, m - 1)
+
+    def quickSort(self, nums: list[int], l: int, r: int):
+
+        if l >= r:
+            return
+
+        p = self.partition(nums, l, r)
+        self.quickSort(nums, l, p - 1)
+        self.quickSort(nums, p + 1, r)
+
+    def partition(self, nums: list[int], l: int, r: int) -> int:
+        p = nums[l]
+
+        i, j = l + 1, r
+
+        while i <= j:
+            while i <= j and nums[i] <= p:
+                i += 1
+            while i <= j and nums[i] > p:
+                j -= 1
+
+            if i >= j:
+                break
+            nums[i], nums[j] = nums[j], nums[i]
+
+        nums[l], nums[j] = nums[j], nums[l]
+
+        return j
 
     def mergeSort(self, nums: list[int], l: int, r: int):
         if l >= r:
@@ -24,7 +52,6 @@ class Solution:
         self.merge(nums, l, mid, r)
 
     def merge(self, nums: list[int], l: int, mid: int, r: int):
-
         for i in range(l, r + 1):
             self.tmp[i] = nums[i]
 
@@ -43,31 +70,6 @@ class Solution:
             else:
                 nums[p] = self.tmp[j]
                 j += 1
-
-    def quickSort(self, nums: List[int], l: int, r: int):
-        if l >= r:
-            return
-        p = self.partition(nums, l, r)
-        self.quickSort(nums, l, p - 1)
-        self.quickSort(nums, p + 1, r)
-
-    def partition(self, nums: list[int], l: int, r: int) -> int:
-        pivot = nums[l]
-        i, j = l + 1, r
-
-        while i <= j:
-            while i <= j and nums[i] <= pivot:
-                i += 1
-            while i <= j and nums[j] > pivot:
-                j -= 1
-
-            if i >= j:
-                break
-            nums[i], nums[j] = nums[j], nums[i]
-
-        nums[l], nums[j] = nums[j], nums[l]
-
-        return j
 
 
 arr = [6, 2, 0, 2, 1, 1, 0, 3, 5]
